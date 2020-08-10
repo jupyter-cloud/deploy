@@ -1,0 +1,7 @@
+users:
+    - author: password
+    - grader: password
+    - admin_ta1: password
+    - admin_ta2: password
+    - admin_ta3: password
+

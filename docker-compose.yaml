@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+    auth:
+        image: jupytercloud/webserver
+        env_file:
+            - secret.env
+        environment:
+            - COURSE=${COURSE}
+            - PORT=${PORT}
+        volumes:
+            - ./accounts.yaml:/etc/jupytercloud/accounts.yaml:ro
+            - ${HOST_DATA_VOLUME}/${COURSE}:/jupytercloud_data:ro
+    jupyterhub:
+        image: jupytercloud/hub
+        env_file:
+            - secret.env
+        environment:
+            - COURSE=${COURSE}
+            - PORT=${PORT}
+            - LOCAL_NOTEBOOK_IMAGE=${LOCAL_NOTEBOOK_IMAGE}
+            - DOCKER_NETWORK_NAME=jupytercloud_network_${COURSE}
+            - HOST_DATA_VOLUME=${HOST_DATA_VOLUME}
+            - NB_UID=${NB_UID}
+            - NB_GID=${NB_GID}
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ${HOST_DATA_VOLUME}/${COURSE}:/jupytercloud_data
+    proxy:
+        image: jupytercloud/proxy
+        environment: 
+            - COURSE=${COURSE} 
+            - PORT=${PORT}
+        ports: 
+            - ${PORT}:${PORT}
+
+networks:
+    default:
+        external:
+            name: jupytercloud_network_${COURSE}
