@@ -11,6 +11,7 @@ services:
         volumes:
             - ./accounts.yaml:/etc/jupytercloud/accounts.yaml:ro
             - ${HOST_DATA_VOLUME}/${COURSE}:/jupytercloud_data:ro
+            - ./logo.png:/jupytercloud-auth-service/app/static/logo.png
     jupyterhub:
         image: jupytercloud/hub
         env_file:
@@ -26,8 +27,8 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ${HOST_DATA_VOLUME}/${COURSE}:/jupytercloud_data
-            - ./icon.png:/srv/jupyterhub/venv/share/jupyterhub/static/images/jupyterhub-80.png
-            - ./icon.png:/srv/jupyterhub/venv/share/jupyterhub/static/images/jupyterhub.png
+            - ./logo.png:/srv/jupyterhub/venv/share/jupyterhub/static/images/jupyterhub-80.png
+            - ./logo.png:/srv/jupyterhub/venv/share/jupyterhub/static/images/jupyterhub.png
     proxy:
         image: jupytercloud/proxy
         environment: 
