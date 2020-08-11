@@ -1,5 +1,5 @@
 up:
-	. ./env.sh && docker-compose up
+	. ./env.sh && docker-compose up -d
 
 down:
 	. ./env.sh && docker-compose down
