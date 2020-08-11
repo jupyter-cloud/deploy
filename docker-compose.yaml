@@ -19,7 +19,7 @@ services:
             - COURSE=${COURSE}
             - PORT=${PORT}
             - LOCAL_NOTEBOOK_IMAGE=${LOCAL_NOTEBOOK_IMAGE}
-            - DOCKER_NETWORK_NAME=jupytercloud_network_${COURSE}
+            - DOCKER_NETWORK_NAME=${COURSE}_default
             - HOST_DATA_VOLUME=${HOST_DATA_VOLUME}
             - NB_UID=${NB_UID}
             - NB_GID=${NB_GID}
@@ -34,7 +34,3 @@ services:
         ports: 
             - ${PORT}:${PORT}
 
-networks:
-    default:
-        external:
-            name: jupytercloud_network_${COURSE}
