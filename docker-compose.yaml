@@ -12,6 +12,7 @@ services:
             - ./accounts.yaml:/etc/jupytercloud/accounts.yaml:ro
             - ${HOST_DATA_VOLUME}/${COURSE}:/jupytercloud_data:ro
             - ./logo.png:/jupytercloud-auth-service/app/static/logo.png
+            - /var/run/docker.sock:/var/run/docker.sock
     jupyterhub:
         image: jupytercloud/hub
         env_file:
@@ -36,4 +37,3 @@ services:
             - PORT=${PORT}
         ports: 
             - ${PORT}:${PORT}
-
