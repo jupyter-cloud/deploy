@@ -1,8 +1,8 @@
 up:
-	. ./env.sh && docker-compose up -d
+	. ./dev_env.sh && docker-compose up -d
 
 down:
-	. ./env.sh && docker-compose down
+	. ./dev_env.sh && docker-compose down
 
 clean:
 	docker rm `docker ps -a -q`
