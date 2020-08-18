@@ -8,6 +8,9 @@ services:
         environment:
             - COURSE=${COURSE}
             - PORT=${PORT}
+            - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+            - SECRET_KEY=${JWT_SECRET_KEY}
+
         volumes:
             - ./accounts.yaml:/etc/jupytercloud/accounts.yaml:ro
             - ${HOST_DATA_VOLUME}/${COURSE}:/jupytercloud_data:ro
@@ -20,11 +23,12 @@ services:
         environment:
             - COURSE=${COURSE}
             - PORT=${PORT}
-            - LOCAL_NOTEBOOK_IMAGE=${LOCAL_NOTEBOOK_IMAGE}
+            - LOCAL_NOTEBOOK_IMAGE=${COURSE_NOTEBOOK_IMAGE}
             - DOCKER_NETWORK_NAME=${COURSE}_default
             - HOST_DATA_VOLUME=${HOST_DATA_VOLUME}
             - NB_UID=${NB_UID}
             - NB_GID=${NB_GID}
+            - JWT_SECRET_KEY=${JWT_SECRET_KEY}
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ${HOST_DATA_VOLUME}/${COURSE}:/jupytercloud_data
