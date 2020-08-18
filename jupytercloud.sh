@@ -70,7 +70,8 @@ touch ${HOST_DATA_VOLUME}/$COURSE/admin/grantlist.txt
 # Secret keys
 #
 
-JWT_SECRET_KEY=`openssl enc -aes256 -pbkdf2 -k jupytercloud-secret -md sha1 -P |grep key |cut -d'=' -f2`
+#JWT_SECRET_KEY=`openssl enc -aes256 -pbkdf2 -k jupytercloud-secret -md sha1 -P |grep key |cut -d'=' -f2`
+JWT_SECRET_KEY=AF789192078DB4E2275A3CE0410E99E93B29A0C723A32652553A9C60E9C23A5B
 
 SECRET_KEY=`head /dev/urandom | tr -dc A-Za-z0-9 | head -c 8 ; echo ''`
 
