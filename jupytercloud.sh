@@ -32,6 +32,7 @@ netstat -tunpl 2>/dev/null | grep :$PORT >/dev/null
 if [ $? -eq 0 ]
 then
     echo ":$PORT already in use."
+    exit 2
 fi
 
 
