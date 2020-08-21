@@ -32,7 +32,6 @@ netstat -tunpl 2>/dev/null | grep :$PORT >/dev/null
 if [ $? -eq 0 ]
 then
     echo ":$PORT already in use."
-    exit 2
 fi
 
 
@@ -99,6 +98,8 @@ echo "Course is: $COURSE"
 echo "Listening at port: $PORT"
 echo "Data directory: $HOST_DATA_VOLUME"
 echo "Docker image used: $COURSE_NOTEBOOK_IMAGE"
+echo "NB_UID: $NB_UID"
+echo "NB_GID: $NB_GID"
 
 cmd=$1
 case $cmd in
