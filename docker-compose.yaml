@@ -33,14 +33,15 @@ services:
             - SINGLEUSER_MEM_LIMIT
             - DISABLE_CULLING
         volumes:
+            - ./accounts.yaml:/etc/jupytercloud/accounts.yaml:ro
             - /var/run/docker.sock:/var/run/docker.sock
             - ${HOST_DATA_VOLUME}/${COURSE}:/jupytercloud_data
             - ./logo.png:/srv/jupyterhub/venv/share/jupyterhub/static/images/jupyterhub-80.png
             - ./logo.png:/srv/jupyterhub/venv/share/jupyterhub/static/images/jupyterhub.png
     proxy:
         image: jupytercloud/proxy
-        environment: 
-            - COURSE=${COURSE} 
+        environment:
+            - COURSE=${COURSE}
             - PORT=${PORT}
-        ports: 
+        ports:
             - ${PORT}:${PORT}
