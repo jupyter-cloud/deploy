@@ -31,6 +31,7 @@ services:
             - JWT_SECRET_KEY=${JWT_SECRET_KEY}
             - SINGLEUSER_CPUS
             - SINGLEUSER_MEM_LIMIT
+            - DISABLE_CULLING
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ${HOST_DATA_VOLUME}/${COURSE}:/jupytercloud_data

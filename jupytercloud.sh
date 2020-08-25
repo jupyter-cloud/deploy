@@ -89,6 +89,11 @@ then
     exit 3
 fi
 
+#
+# JupyterHub cull_service is enabled by default. It could
+# be turned off by setting DISABLE_CULLING=True
+#
+# export DISABLE_CULLING=True
 
 #
 # Report
