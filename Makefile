@@ -1,8 +1,17 @@
+export PORT=
+export COURSE_NOTEBOOK_IMAGE=jupytercloud/basic
+
+default:
+	./jupytercloud.sh
+
 up:
-	docker-compose up -d
+	./jupytercloud.sh up
 
 down:
-	docker-compose down
+	./jupytercloud.sh down
+
+logs:
+	docker-compose logs -f
 
 clean:
 	docker rm `docker ps -a -q`

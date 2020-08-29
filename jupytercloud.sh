@@ -99,12 +99,15 @@ fi
 # Report
 #
 
+echo "============================================"
 echo "Course is: $COURSE"
 echo "Listening at port: $PORT"
 echo "Data directory: $HOST_DATA_VOLUME"
 echo "Docker image used: $COURSE_NOTEBOOK_IMAGE"
 echo "NB_UID: $NB_UID"
 echo "NB_GID: $NB_GID"
+echo "============================================"
+pattern="(${COURSE}_)|(jupytercloud-${COURSE}-)"
 
 cmd=$1
 case $cmd in
@@ -112,6 +115,16 @@ case $cmd in
     docker-compose up -d
     ;;
 "down")
-    docker-compose down
+    docker ps -a --format "{{.ID}} {{.Names}}" | grep -E $pattern > /dev/null
+    if [[ $? -eq 0 ]]
+    then
+        echo "Shutdown $COURSE..."
+        docker rm -f `docker ps -a --format "{{.ID}} {{.Names}}" | grep -E $pattern| cut -f1 -d" "`
+    else
+        echo "$COURSE is not running."
+    fi
+    ;;
+*)
+    docker ps -a --format "{{.Names}} {{.Status}}" | grep -E $pattern | sort
     ;;
 esac
