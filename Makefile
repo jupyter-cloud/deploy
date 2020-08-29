@@ -1,5 +1,5 @@
 export PORT=
-export COURSE_NOTEBOOK_IMAGE=jupytercloud/basic
+export COURSE_NOTEBOOK_IMAGE=jupytercloud/singleuser-basic:latest
 
 default:
 	./jupytercloud.sh
