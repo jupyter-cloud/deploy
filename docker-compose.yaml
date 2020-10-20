@@ -29,8 +29,8 @@ services:
             - NB_UID=${NB_UID}
             - NB_GID=${NB_GID}
             - JWT_SECRET_KEY=${JWT_SECRET_KEY}
-            - SINGLEUSER_CPUS
-            - SINGLEUSER_MEM_LIMIT
+            - SINGLEUSER_CPUS=${SINGLEUSER_CPUS}
+            - SINGLEUSER_MEM_LIMIT=${SINGLEUSER_MEM_LIMIT}
             - DISABLE_CULLING
         volumes:
             - ./accounts.yaml:/etc/jupytercloud/accounts.yaml:ro
