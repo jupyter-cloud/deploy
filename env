@@ -1,0 +1,4 @@
+PORT=8000
+SINGLEUSER_CPUS=
+SINGLEUSER_MEM_LIMIT=
+COURSE_NOTEBOOK_IMAGE=jupytercloud/singleuser-basic:latest

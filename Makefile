@@ -1,7 +1,5 @@
-export PORT=
-export SINGLEUSER_CPUS=
-export SINGLEUSER_MEM_LIMIT=
-export COURSE_NOTEBOOK_IMAGE=jupytercloud/singleuser-basic:latest
+include env
+export
 
 default:
 	./jupytercloud.sh

@@ -26,7 +26,8 @@ fi
 #
 if [[ -z "$PORT" ]]
 then
-    export PORT=8000
+    echo '$PORT is not set'
+    exit 3
 fi
 netstat -tunpl 2>/dev/null | grep :$PORT >/dev/null
 if [ $? -eq 0 ]
@@ -70,13 +71,9 @@ touch ${HOST_DATA_VOLUME}/$COURSE/admin/grantlist.txt
 # Secret keys
 #
 
-#JWT_SECRET_KEY=`openssl enc -aes256 -pbkdf2 -k jupytercloud-secret -md sha1 -P |grep key |cut -d'=' -f2`
-JWT_SECRET_KEY=AF789192078DB4E2275A3CE0410E99E93B29A0C723A32652553A9C60E9C23A5B
-
-SECRET_KEY=`head /dev/urandom | tr -dc A-Za-z0-9 | head -c 8 ; echo ''`
+JWT_SECRET_KEY=`openssl rand -hex 32`
 
 export JWT_SECRET_KEY
-export SECRET_KEY
 
 #
 # Initial accounts
@@ -99,14 +96,23 @@ fi
 # Report
 #
 
-echo "============================================"
-echo "Course is: $COURSE"
-echo "Listening at port: $PORT"
-echo "Data directory: $HOST_DATA_VOLUME"
-echo "Docker image used: $COURSE_NOTEBOOK_IMAGE"
-echo "NB_UID: $NB_UID"
-echo "NB_GID: $NB_GID"
-echo "============================================"
+echo "Course is:                    $COURSE"
+echo "PORT:                         $PORT"
+echo "COURSE_NOTEBOOK_IMAGE:        $COURSE_NOTEBOOK_IMAGE"
+if [[ ! -z "$SINGLEUSER_CPUS" ]]
+then
+    echo "SINGLEUSER_CPUS:              $SINGLEUSER_CPUS"
+fi
+if [[ ! -z "$SINGLEUSER_MEM_LIMIT" ]]
+then
+    echo "SINGLEUSER_MEM_LIMIT:         $SINGLEUSER_MEM_LIMIT"
+fi
+echo
+echo "NB_UID:                       $NB_UID"
+echo "NB_GID:                       $NB_GID"
+echo "Data directory:               $HOST_DATA_VOLUME"
+echo "JWT_SECRET_KEY:               $JWT_SECRET_KEY"
+
 pattern="(${COURSE}_)|(jupytercloud-${COURSE}-)"
 
 cmd=$1
@@ -125,6 +131,12 @@ case $cmd in
     fi
     ;;
 *)
+    echo 
+    echo "=========== Current deployment ============"
     docker ps -a --format "{{.Names}} {{.Status}}" | grep -E $pattern | sort
+    echo
+    echo 'make up # to start'
+    echo 'make down # to stop'
+
     ;;
 esac
